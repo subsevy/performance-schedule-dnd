@@ -38,6 +38,8 @@ export default function PerformanceScheduler() {
     useSensor(TouchSensor, {
       activationConstraint: {
         distance: 8,
+        delay: 150,
+        tolerance: 5,
       },
     })
   );

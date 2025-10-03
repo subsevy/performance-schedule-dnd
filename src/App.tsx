@@ -3,7 +3,7 @@ import PerformanceScheduler from "./PerformanceScheduler";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{ height: "100vh", overflow: "auto" }}>
       <header>
         <h2>2025 NDC 공연 스케쥴러</h2>
       </header>

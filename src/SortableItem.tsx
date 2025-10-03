@@ -39,35 +39,51 @@ export function SortableItem({
         gap: 10,
         alignItems: "center",
         justifyContent: "flex-start",
+        flexWrap: "wrap", // 줄 바꿈 허용
+        flexDirection: "row",
       }}
       {...attributes}
     >
-      <div {...listeners} style={{ cursor: "grab", paddingRight: 8 }}>
+      <div
+        {...listeners}
+        style={{ cursor: "grab", paddingRight: 8, touchAction: "none" }}
+      >
         ≡
+        <span
+          style={{
+            width: 150,
+            backgroundColor: "black",
+            color: "white",
+            display: "inline-block",
+            marginLeft: 10,
+          }}
+        >
+          {teamName}
+        </span>
       </div>
-      <span style={{ width: 150, backgroundColor: "black", color: "white" }}>
-        {teamName}
-      </span>
+      <input
+        type="text"
+        placeholder="타입"
+        value={type}
+        onChange={(e) => onTypeChange(id, e.target.value)}
+        style={{
+          width: 100,
+          backgroundColor: warningType ? "red" : "gray",
+          color: "white",
+        }}
+        onPointerDown={(e) => e.stopPropagation()}
+        onTouchStart={(e) => e.stopPropagation()}
+      />
       <div
         style={{
           display: "flex",
           gap: 10,
           alignItems: "center",
           justifyContent: "space-between",
+          flexWrap: "wrap", // 줄 바꿈 허용
+          flexDirection: "row",
         }}
       >
-        <input
-          type="text"
-          placeholder="타입"
-          value={type}
-          onChange={(e) => onTypeChange(id, e.target.value)}
-          style={{
-            width: 100,
-            backgroundColor: warningType ? "red" : "gray",
-            color: "white",
-          }}
-          onPointerDown={(e) => e.stopPropagation()}
-        />
         {names.map((name, idx) => (
           <input
             key={idx}
@@ -77,9 +93,10 @@ export function SortableItem({
             onChange={(e) => onNameChange(id, idx, e.target.value)}
             style={{
               borderColor: warningNames[idx] ? "red" : "#ccc",
-              width: 60,
+              width: 35,
             }}
             onPointerDown={(e) => e.stopPropagation()}
+            onTouchStart={(e) => e.stopPropagation()}
           />
         ))}
       </div>

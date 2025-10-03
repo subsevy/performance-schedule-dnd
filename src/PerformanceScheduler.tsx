@@ -6,6 +6,7 @@ import {
   useSensor,
   useSensors,
   DragEndEvent,
+  TouchSensor,
 } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -32,7 +33,14 @@ export default function PerformanceScheduler() {
 
   const [warnings, setWarnings] = useState<Record<string, WarningStatus>>({});
 
-  const sensors = useSensors(useSensor(PointerSensor));
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    })
+  );
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -116,7 +124,7 @@ export default function PerformanceScheduler() {
   }, [items]);
 
   return (
-    <div style={{ width: 1000, margin: "auto" }}>
+    <div style={{ maxWidth: 1000, margin: "auto" }}>
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
